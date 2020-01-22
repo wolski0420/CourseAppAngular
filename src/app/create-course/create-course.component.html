@@ -1,0 +1,58 @@
+<div class="jumbotron mb-0">
+  <div class="container">
+    <form [formGroup]="createCourseForm" (ngSubmit)="onSubmit()">
+      <h3 class="text-center">Dodaj kurs!</h3>
+
+      <div class="form-group">
+        <label>Nazwa kursu:</label>
+        <input type="text" class="form-control" formControlName="name" required />
+        <small class="form-text text-muted">Będzie widoczna na głównej stronie</small>
+      </div>
+      
+      <div class="form-group">      
+        <label>Liczba punktów ECTS:</label>
+        <input type="number" class="form-control" min="0" max="30" formControlName="ects" required />  
+      </div>
+        
+      <div class="form-group">
+        <label>Semestr:</label>
+        <input type="number" class="form-control" min="1" max="7" formControlName="semester" required />  
+      </div>
+        
+      <div class="form-group">
+        <label>Liczba studentów:</label>
+        <input type="number" class="form-control" min="0" formControlName="students" required />  
+      </div>
+        
+      <div class="form-group">
+        <label class="form-check-label mr-sm-2">Wykład(?):</label>
+        <input type="checkbox" [checked]="check == 'true'" formControlName="lecture" />
+      </div>
+        
+      <div class="form-group">
+        <label class="form-check-label mr-sm-2">Egzamin(?):</label>
+        <input type="checkbox" [checked]="check == 'true'" formControlName="ex" />
+      </div>
+        
+      <div class="form-group">
+        <label class="form-check-label mr-sm-2">Laboratoria(?):</label>
+        <input type="checkbox" [checked]="check == 'true'" formControlName="labs" />
+      </div>
+        
+      <div class="form-group">
+        <label class="form-check-label mr-sm-2">Projekty(?):</label>
+        <input type="checkbox" [checked]="check == 'true'" formControlName="proj" />
+      </div>
+
+      <div class="form-group">
+        <label>Wybierz zdjęcie:</label>
+        <input type="text" class="form-control" formControlName="img" required />
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit" [disabled]="!createCourseForm.valid">Dodaj</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

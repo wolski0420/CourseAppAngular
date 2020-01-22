@@ -1,0 +1,47 @@
+<div class="jumbotron jumbotron-fluid mt-0">
+  <div class="container mt-0">
+    <div id="collapsibleDiv" class="collapse container">
+      <h4 class="text-center mb-3">Wyszukaj kurs:</h4>
+      
+      <h6 class="text center mb-2">Nazwa:</h6>
+      <input class="form-control" #searchBox1 (input)="searching()">
+
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <h6 class="text center mb-2">Punkty ECTS:</h6>
+          <input class="form-control" #searchBox2 (input)="searching()">
+        </div>
+      
+        <div class="col-md-3">
+          <h6 class="text center mb-2">Liczba studentów:</h6>
+          <input class="form-control" #searchBox3 (input)="searching()">
+        </div>
+    
+        <div class="col-md-3">
+          <h6 class="text center mb-2">Min. ocena (0-5 gwiazdek):</h6>
+          <input class="form-control" #searchBox4 (input)="searching()">
+        </div>
+    
+        <div class="col-md-3">
+          <h6 class="text center mb-2">Max. ocena (0-5 gwiazdek):</h6>
+          <input class="form-control" #searchBox5 (input)="searching()">
+        </div>
+      </div>
+
+      <ul *ngIf="searchBox1.value!='' || 
+      searchBox2.value!='' ||
+      searchBox3.value!='' ||
+      searchBox4.value!='' ||
+      searchBox5.value!='' " 
+      class="search-result mt-5" >
+        <li *ngFor="let course of ( courses | searchByName: searchBox1.value 
+        | searchByECTS: searchBox2.value 
+        | searchByStudents: searchBox3.value
+        | searchByMinRating: searchBox4.value
+        | searchByMaxRating: searchBox5.value)">
+          <a routerLink="/details/{{course.$key}}">{{course.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

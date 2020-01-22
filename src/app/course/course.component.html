@@ -1,0 +1,96 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div id="topic" class="form-inline my-2">
+            <h2>{{ this.course?.name }}</h2>
+            <input *ngIf="this.courseChangeVisibility" class="form-control ml-1" type="text" #changeName (input)="this.changeCourseName(changeName.value)">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <img class="col-md-6 img-thumbnail my-3" src="{{this.course?.img}}"/>
+        
+        <div class="col-md-6 text-center my-3">
+            <h4 class="text-danger my-md-4 ml-md-2">Informacje o kursie</h4>
+
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Liczba punktów ECTS: 
+                    <mark>{{ this.course?.ects }}</mark>
+                </h5>
+                <input *ngIf="this.courseChangeVisibility" class="form-control ml-1" type="number" min="0" max="30" #changeECTS (input)="this.changeCourseECTS(changeECTS.value)">
+            </div>
+
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Numer semestru: 
+                    <mark>{{ this.course?.semester }}</mark>
+                </h5>
+                <input *ngIf="this.courseChangeVisibility" class="form-control ml-1" type="number" min="0" max="7" #changeSemester (input)="this.changeCourseSemester(changeSemester.value)">
+            </div>
+
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Wykład?: 
+                    <mark *ngIf="this.course?.lecture === true">Tak</mark>
+                    <mark *ngIf="this.course?.lecture === false">Nie</mark>
+                </h5>
+                <button *ngIf="this.courseChangeVisibility" class="btn btn-info btn-large ml-1" (click)="this.changeCourseLecture()">Zmien</button>
+            </div>
+             
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Egzamin?: 
+                    <mark *ngIf="this.course?.ex === true">Tak</mark>
+                    <mark *ngIf="this.course?.ex === false">Nie</mark>
+                </h5>
+                <button *ngIf="this.courseChangeVisibility" class="btn btn-info btn-large ml-1" (click)="this.changeCourseEx()">Zmien</button>
+            </div>
+
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Laboratoria?: 
+                    <mark *ngIf="this.course?.labs === true">Tak</mark>
+                    <mark *ngIf="this.course?.labs === false">Nie</mark>
+                </h5>
+                <button *ngIf="this.courseChangeVisibility" class="btn btn-info btn-large ml-1" (click)="this.changeCourseLabs()">Zmien</button>
+            </div>
+
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Projekty?: 
+                    <mark *ngIf="this.course?.proj === true">Tak</mark>
+                    <mark *ngIf="this.course?.proj === false">Nie</mark>
+                </h5>
+                <button *ngIf="this.courseChangeVisibility" class="btn btn-info btn-large ml-1" (click)="this.changeCourseProj()">Zmien</button>
+            </div>
+            
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Liczba studentów: 
+                    <mark>{{ this.course?.students }}</mark>
+                </h5>
+                <input *ngIf="this.courseChangeVisibility" class="form-control ml-1" style="width: 80px" type="number" min="0" #changeStudentsNumber (input)="this.changeCourseStudents(changeStudentsNumber.value)">
+            </div>
+
+            <div class="form-inline justify-content-center">
+                <h5 class="text-info my-md-1">Liczba zapisanych studentów: 
+                    <mark>{{ this.course?.signedStudents }}</mark>
+                </h5>
+            </div>
+
+            <h5 class="text-info my-md-1">Średnia ocena: 
+                <star-rating  value="{{ this.course?.rating }}" totalstars="5" checkedcolor="gold" uncheckedcolor="black" size="25px" readonly="false"></star-rating>
+            </h5>
+        </div>
+    </div>  
+</div>
+
+<div class="jumbotron jumbotron-fluid mb-0">
+    <div class="container">
+        <div *ngIf="this.isUserSignedToCourse" class="row justify-content-center">
+            <h4 class="text-info my-2">Twoja ocena:</h4>
+            <star-rating class="p-1 pl-2" value="{{ this.userCourseRating }}"  totalstars="5" checkedcolor="gold" uncheckedcolor="black" size="25px" readonly="false" (rate)="addRate($event,this.course)"></star-rating>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <button *ngIf="!this.isUserSignedToCourse" class="btn btn-large" [ngClass]="{ 'btn-success': this.hasCourseFreePlaces, 'btn-danger': !this.hasCourseFreePlaces }" (click)="signFor()">Zapisz się</button>
+            <button class="btn btn-primary btn-large" (click)="comeBack()">Wróć</button>
+            <button *ngIf="this.isUserAdmin" class="btn btn-warning btn-large" data-toggle="collapse" data-target="#collapsibleDivChange" (click)="this.courseChanges()">Zmien</button>
+        </div>
+    </div>
+</div>

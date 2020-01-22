@@ -1,0 +1,33 @@
+.container{
+    margin-bottom: 10px;
+
+    .row{
+        padding: 10px;
+
+        .container{
+            margin-bottom: 0;
+
+            .row{
+                border: 1.5px solid black;
+                border-radius: 3px;
+
+                img{
+                    border: 1px solid black;
+                    padding: 0;
+                }
+
+                .row{
+                    border: 0;
+                }
+            }
+        }
+
+        .odd{
+            background: white;
+        }
+
+        .even{
+            background: rgb(255, 243, 245);
+        }
+    }
+}

@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="jumbotron m-0">
+    <div class="row text-center justify-content-center">
+      <h1>Logowanie do systemu kursów</h1>
+    </div>
+
+    <div class="row mt-5 form-group">
+      <label>Adres e-mail: </label>
+      <input class="form-control" placeholder="Twój adres e-mail" [(ngModel)]="credentials.email">
+    </div>
+
+    <div class="row form-group">
+      <label>Hasło: </label>
+      <input class="form-control" type="password" placeholder="Twoje hasło" [(ngModel)]="credentials.password">
+    </div>
+
+    <div class="row mt-5 form-group justify-content-center">
+      <button class="col-md-8 btn btn-large btn-primary" (click)="login()">Zaloguj</button>
+    </div>
+
+    <div class="row mt-5 form-group justify-content-center">
+      <a (click)="register()"><h6>Niezarejestrowany? Kliknij tutaj!</h6></a>
+    </div>
+  </div>
+</div>

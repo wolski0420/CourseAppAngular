@@ -1,0 +1,36 @@
+<app-search-course></app-search-course>
+
+<div class="container">
+  <div class="row align-items-center text-center" *ngFor="let course of ( courses | coursePagination: this.actualPageNumber: this.getCoursesToDisplayNumber() ); let odd = odd; let even = even">
+    <div class="col-md-12 container" [ngClass]="{ odd: odd, even: even }">
+      <div class="row align-items-center text-center">
+        <img class="col-md-3 img-thumbnail" [src]="course.img" />
+        
+        <h3 class="col-md-7">{{ course.name }}</h3>
+        
+        <div class="col-md-2">
+          <button *ngIf="this.isAdmin" type="button" class="btn btn-large btn-danger" title="Usuń ten kurs" (click)="this.deleteCourse(course)">Usuń</button>
+
+          <button type="button" class="btn btn-large btn-primary" title="Wyświetl dane" routerLink="/details/{{ course?.$key }}">Otwórz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row form-inline justify-content-center ">
+    <p class="pt-2 pr-1">Liczba kursów na stronę:</p>
+    <input class="col-2 form-control" #toDisplayInput (input)="this.setToDisplayNumber(toDisplayInput.value)">
+  </div>
+
+  <ul class="pagination flex-wrap justify-content-center">
+    <li class="page-item"><a class="page-link" (click)="this.previousPage()">Poprzednia</a></li>
+
+    <li class="page-item" [ngClass]="{'active':i+1===this.actualPageNumber}" *ngFor="let item of emptyArrayToIterate(this.getNumberOfPages()); let i = index">
+      <a class="page-link"  (click)="this.setActualPageNumber(i+1)">{{ i+1 }}</a>
+    </li>
+
+    <li class="page-item"><a class="page-link" (click)="this.nextPage()">Następna</a></li>
+  </ul>
+</div>
+
+<app-create-course *ngIf="this.isAdmin" (courseEvent)="add($event)"></app-create-course>
